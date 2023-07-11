@@ -13,37 +13,20 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // example
 const initialState = {
-  totalMarkets: 0,
-  totalCards: 0,
-  marketList: [],
-  lastMarketId: 10000,
-  newLocation: '',
+  count: 0,
 };
 
 export const generalReducers = createSlice({
-  name: 'market',
+  name: 'count',
   initialState,
   reducers: {
-    example: (state) => {
-      // increment lastMarketId and totalMarkets counters
-      state.lastMarketId += 1;
-      state.totalMarkets += 1;
-      // create the new market object from provided data
-      const newMarket = {
-        // what goes in here?
-        marketId: state.lastMarketId,
-        location: state.newLocation,
-        cards: 0,
-        percent: 0,
-      };
-
-      // push the new market onto a copy of the market list
-      state.marketList.push(newMarket);
+    counter: (state) => {
+      state.count++;
     }
   },
 });
 
 // Add specific reducers
-export const { market } = generalReducers.actions;
+export const { counter } = generalReducers.actions;
 
 export default generalReducers.reducer;

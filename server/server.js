@@ -10,7 +10,13 @@ const PORT = 3000;
 app.use(express.json());
 
 //TODO: Add express.static handler, ensure it works
-app.use(express.static(path.resolve(__dirname, '../client')));
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.resolve(__dirname, '../dist')));
+}
+else {
+  app.use(express.static(path.resolve(__dirname, '../client')));
+}
+
 
 //TODO: router stuff
 
