@@ -13,16 +13,25 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { counter } from '../reducers/generalReducers.js';
 
+import FileNavigator from '../components/FileNavigator.jsx';
+
 const MainContainer = () => {
 
-  const dispatch = useDispatch();
-
-  const count = useSelector(state => state.general.count);
+  // const dispatch = useDispatch();
+  // const count = useSelector(state => state.general.count);
+  // <h1>{count}</h1>
+  // <button onClick={ () => dispatch(counter()) }>increment</button>
 
   return(
-    <div className="container">
-      <h1>{count}</h1>
-      <button onClick={ () => dispatch(counter()) }>increment</button>
+    <div className="container-main">
+      <div className="header-nav-bar">
+        <header>
+          <h1>FILE SHARE BONANZA TOWN</h1>
+        </header>
+      </div>
+      <div className="file-navigator">
+        <FileNavigator />
+      </div>
     </div>
   );
 };

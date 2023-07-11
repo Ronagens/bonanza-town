@@ -5,7 +5,7 @@ import './stylesheets/styles.css';
 
 const App = () => {
   return(
-    <div className="testclass">
+    <div>
       <MainContainer/>
     </div>
   );

@@ -17,7 +17,7 @@ module.exports = {
       directory: path.join(__dirname, 'build'),
     },
     proxy: {
-      '/api': 'http://localhost:3000',
+      '/file': 'http://localhost:3000',
     },
     port: 8080, // you can change the port
   },
