@@ -33,12 +33,23 @@ const DragDropFile = () => {
   }
 
   const uploadFile = (file) => {
+    const form = new FormData();
+    form.append('test', true);
+    console.log(form);
     fetch('/file', {
       method: 'POST',
-      body: file
+      headers: {
+        'content-length': '163',
+        'content-type': 'multipart/form-data; boundary=--------------------------708012600792797463072238',
+        connection: 'close',
+        'accept-encoding': 'gzip, deflate, br',
+        host: 'localhost:8080',
+        accept: '*/*',
+      },
+      body: form
     })
     .then(response => console.log(response))
-    // .then(success => console.log(success))
+    // .then(success => console.log("Success: ", success))
     .catch(err => console.log(err));
   }
 
