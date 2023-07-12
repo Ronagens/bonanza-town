@@ -8,7 +8,7 @@ h1 {
 }
 
 p {
-  margin: 0px;
+  margin: 3px;
 }
 
 #form-file-upload {
@@ -51,36 +51,55 @@ p {
 
 .container-main {
   background-color: coral;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 40px 1fr 1fr 1fr 150px;
   height: 100vh;
   margin: 0px;
 }
 
+.delete-button {
+  background-color: #b5b5cf;
+  border: 2px solid #5252b6;
+  border-radius: 2%;
+  color: #5252b6;
+  margin: 3px;
+  width: 40%;
+}
+
+.download-button {
+  background-color: #5252b6;
+  border: 2px solid #b5b5cf;
+  border-radius: 2%;
+  margin: 3px;
+  width: 53%;
+}
+
 .header-nav-bar {
+  grid-column-start: 1;
+  grid-column-end: 5;
+  grid-row-start: 1;
   background-color: grey;
-  height: 4vh;
-  min-height: 40px;
 }
 
 .file-navigator {
+  grid-row-start: 2;
+  grid-row-end: 4;
   background-color: aqua;
-  height: 76vh;
-  width: 30vh;
-  min-width: 150px;
+  overflow: auto;
 }
 
 .file-nav-item {
-  background-color: #f0bebe;
-  border: 3px solid #8b8bd7;
-  border-radius: 5%;
+  background-color: #8b8bd7;
+  border: 2px solid #b5b5cf;
+  border-radius: 2%;
   margin: 2px;
 }
 
 .file-upload {
+  grid-row-start: 5;
+  grid-row-end: 5;
   background-color: forestgreen;
-  height: 20vh;
-  width: 30vh;
-  min-height: 150px;
-  min-width: 150px;
   position: fixed;
   bottom: 0;
   left: 0;

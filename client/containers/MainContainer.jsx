@@ -14,6 +14,7 @@ import React from 'react';
 // import { counter } from '../reducers/generalReducers.js';
 
 import FileNavigator from '../components/FileNavigator.jsx';
+import DragDropFile from '../components/DragDropFile.jsx';
 
 const MainContainer = () => {
 
@@ -31,6 +32,9 @@ const MainContainer = () => {
       </div>
       <div className="file-navigator">
         <FileNavigator />
+      </div>
+      <div className="file-upload">
+        <DragDropFile />
       </div>
     </div>
   );

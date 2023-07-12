@@ -15,7 +15,11 @@ router.post('/',
   upload.single('myFile'),
   fileController.createFile,
   (req, res) => {
-    res.status(200).send('success');
+    res.status(200).json('successful post');
   })
-
+  
+router.delete('/:id', (req, res) => {
+  console.log(req.params);
+  res.status(200).json('successful delete');
+})
 module.exports = router;
