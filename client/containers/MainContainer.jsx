@@ -10,11 +10,12 @@
  */
 
 import React, { useEffect, useState } from 'react';
-// import { useSelector, useDispatch } from 'react-redux';
-// import { counter } from '../reducers/generalReducers.js';
+import { useSelector, useDispatch } from 'react-redux';
+import { counter } from '../reducers/generalReducers.js';
 
 import FileNavigator from '../components/FileNavigator.jsx';
 import DragDropFile from '../components/DragDropFile.jsx';
+import HeaderNavBar from '../components/HeaderNavBar.jsx';
 
 const MainContainer = () => {
 
@@ -70,11 +71,7 @@ const MainContainer = () => {
 
   return(
     <div className="container-main">
-      <div className="header-nav-bar">
-        <header>
-          <h1>FILE SHARE BONANZA TOWN</h1>
-        </header>
-      </div>
+      <HeaderNavBar />
       <div className="file-navigator">
         <FileNavigator files={files} deleteFile={deleteFile} downloadFile={downloadFile} />
       </div>

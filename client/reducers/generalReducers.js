@@ -13,16 +13,14 @@ import { createSlice } from '@reduxjs/toolkit';
 
 // example
 const initialState = {
-  count: 0,
+  files: [],
 };
 
 export const generalReducers = createSlice({
-  name: 'count',
+  name: 'general',
   initialState,
   reducers: {
-    counter: (state) => {
-      state.count++;
-    }
+    
   },
 });
 
