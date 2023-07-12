@@ -1,39 +1,38 @@
-import React from 'react';
+import React, { useState } from 'react';
+import axios from 'axios';
 
 import DragDropFile from './DragDropFile.jsx';
 
 const FileNavigator = () => {
 
-  function submitForm(e) {
-    e.preventDefault();
-    
-    const formData = new FormData(e.target);
-    // const data = new URLSearchParams(formData);
-    console.log(formData);
+  const [file, setFile] = useState(null);
 
-    // 'multipart/form-data'
-    fetch('/file', {
-      method: 'POST',
-      headers: {
-        'Content-type': 'multipart/form-data'
-      },
-      body: formData
-    })
-    .then(res => console.log(res))
-    .catch(err => console.log('error: ', err));
+  function upDateFile(e) {
+    setFile(e.target.files[0]);
+  }
+
+  function uploadFile() {
+    const formData = new FormData();
+
+    formData.append(
+      'myFile',
+      file,
+      file.name
+    )
+
+    console.log('file: ', file);
+
+    axios.post('/file', formData);
   }
 
   return(
     <div>
       <p>HI HI THIS IS FILE NAVIGATOR</p>
       <div className="file-upload">
-        <form onSubmit={(e) => submitForm(e)}>
-          <input name="username" type="text" placeholder="username"></input>
-          <input name="password" type="text" placeholder="password"></input>
-          <input name="file" type="file"></input>
-
-          <button type="submit">Submit</button>
-        </form>
+        <input type="file" onChange={upDateFile} />
+        <button onClick={uploadFile}>
+          Upload!
+        </button>
       </div>
     </div>
   );

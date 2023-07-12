@@ -8,7 +8,7 @@ const upload = multer({
     return next(err);
   }
   });
-// const fs = require('fs');
+const fs = require('fs');
 // add cookieparser/bcrypt for authentication
 
 const app = express();
@@ -28,16 +28,13 @@ else {
 
 
 //TODO: router stuff
-app.post('/file', (req, res, next) => { 
-  console.log('entering upload');
-  return next();
-  },
-  upload.single('file'),
+app.post('/file',
+  upload.single('myFile'),
   (req, res) => {
   console.log(req.headers);
   console.log(req.body);
   console.log(req.file);
-  console.log(req.files);
+  
   res.status(200).send('idk man');
 })
 
