@@ -22,6 +22,18 @@ fileController.createFile = async (req, res, next) => {
   }
 }
 
+fileController.downloadFile = async (req, res, next) => {
+  try {
+    const file = await File.findOne({ _id: req.params.id });
+    res.locals.file = path.resolve(__dirname, '../../' + file.filepath);
+    return next();
+  } catch (err) {
+    console.log('Error in fileController.downloadFile: ', err);
+    return next({ log: 'Error in fileController.downloadFile', err});
+  }
+  
+}
+
 fileController.deleteFile = async (req, res, next) => {
   try {
     const deletedFile = await File.findOneAndDelete({ _id: req.params.id })
@@ -43,7 +55,6 @@ fileController.deleteFile = async (req, res, next) => {
 
 fileController.getAllFiles = async (req, res, next) => {
   try {
-    console.log('getting files');
     const files = await File.find({}, 'name');
     res.locals.files = files
     return next();
@@ -51,10 +62,6 @@ fileController.getAllFiles = async (req, res, next) => {
     console.log('Error in fileController.getAllFiles: ', err);
     return next({ log: 'Error in fileController.getAllFiles', err});
   }
-  
 }
-// console.log(err);
-//     if (err) return next({ log: 'Error occured in fileController.getAllFiles', err});
-//     res.locals.files = files;
-//     return next();
+
 module.exports = fileController;

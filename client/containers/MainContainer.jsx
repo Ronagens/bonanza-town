@@ -18,12 +18,15 @@ import DragDropFile from '../components/DragDropFile.jsx';
 
 const MainContainer = () => {
 
+  // Array of files on the server
   const [files, setFiles] = useState([]);
 
+  // Get files from server on initial load
   useEffect(() => {
     getFiles();
   }, [])
 
+  // Gets all files from server
   function getFiles() {
     fetch('/file')
     .then(response => response.json())
@@ -34,6 +37,7 @@ const MainContainer = () => {
     .catch(err => console.log('FileNavigator getFiles error: ', err));
   }
 
+  // Deletes a file from server matching the input id
   function deleteFile(id, name) {
     console.log('deleting: ', id);
     fetch('/file/' + id, {
@@ -47,8 +51,21 @@ const MainContainer = () => {
     .catch(err => console.log('Error in FileNavigator deleteFile: ', err));
   }
 
-  function downloadFile(id) {
+  // Downloads a file form server matching id
+  function downloadFile(id, name) {
     console.log('downloading: ', id);
+    fetch('/file/download/' + id)
+    .then(response => response.blob())
+    .then(blob => {
+      // Downloads to user's computer
+      const fileURL = window.URL.createObjectURL(blob);
+      let alink = document.createElement('a');
+      alink.href = fileURL;
+      alink.download = name;
+      alink.click();
+      getFiles();
+    })
+    .catch(err => console.log('Error in FileNavigator downloadFile: ', err));
   }
 
   return(
