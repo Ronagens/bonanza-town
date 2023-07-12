@@ -9,7 +9,7 @@
  * ************************************
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 // import { useSelector, useDispatch } from 'react-redux';
 // import { counter } from '../reducers/generalReducers.js';
 
@@ -18,10 +18,38 @@ import DragDropFile from '../components/DragDropFile.jsx';
 
 const MainContainer = () => {
 
-  // const dispatch = useDispatch();
-  // const count = useSelector(state => state.general.count);
-  // <h1>{count}</h1>
-  // <button onClick={ () => dispatch(counter()) }>increment</button>
+  const [files, setFiles] = useState([]);
+
+  useEffect(() => {
+    getFiles();
+  }, [])
+
+  function getFiles() {
+    fetch('/file')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      setFiles(data)
+    })
+    .catch(err => console.log('FileNavigator getFiles error: ', err));
+  }
+
+  function deleteFile(id, name) {
+    console.log('deleting: ', id);
+    fetch('/file/' + id, {
+      method: 'DELETE'
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Deleted: ', data)
+      getFiles();
+    })
+    .catch(err => console.log('Error in FileNavigator deleteFile: ', err));
+  }
+
+  function downloadFile(id) {
+    console.log('downloading: ', id);
+  }
 
   return(
     <div className="container-main">
@@ -31,10 +59,10 @@ const MainContainer = () => {
         </header>
       </div>
       <div className="file-navigator">
-        <FileNavigator />
+        <FileNavigator files={files} deleteFile={deleteFile} downloadFile={downloadFile} />
       </div>
       <div className="file-upload">
-        <DragDropFile />
+        <DragDropFile getFiles={getFiles} />
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const DragDropFile = () => {
+const DragDropFile = (props) => {
 
   const [dragActive, setDragActive] = useState(false);
   const [file, setFile] = useState(null);
@@ -20,6 +20,7 @@ const DragDropFile = () => {
     axios.post('/file', formData);
 
     setFile(null);
+    props.getFiles();
   }
 
   const handleDrag = function(e) {

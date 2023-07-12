@@ -2,40 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import FileNavItem from './FileNavItem.jsx';
 
-const FileNavigator = () => {
-
-  const [files, setFiles] = useState([]);
-
-  useEffect(() => {
-    getFiles();
-  }, [])
-
-  function getFiles() {
-    fetch('/file')
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setFiles(data)
-    })
-    .catch(err => console.log('FileNavigator getFiles error: ', err));
-  }
-
-  function deleteFile(id, name) {
-    console.log('deleting: ', id);
-    fetch('/file/' + id, {
-      method: 'DELETE'
-    })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Deleted: ', data)
-      getFiles();
-    })
-    .catch(err => console.log('Error in FileNavigator deleteFile: ', err));
-  }
-
-  function downloadFile(id) {
-    console.log('downloading: ', id);
-  }
+const FileNavigator = (props) => {
+  const { files, downloadFile, deleteFile } = props;
 
   const newNavItems = [];
   for (let i = 0; i < files.length; i++) {
