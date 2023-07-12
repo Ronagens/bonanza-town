@@ -20,13 +20,16 @@ const FileNavigator = () => {
     .catch(err => console.log('FileNavigator getFiles error: ', err));
   }
 
-  function deleteFile(id) {
+  function deleteFile(id, name) {
     console.log('deleting: ', id);
     fetch('/file/' + id, {
       method: 'DELETE'
     })
     .then(response => response.json())
-    .then(data => console.log(data))
+    .then(data => {
+      console.log('Deleted: ', data)
+      getFiles();
+    })
     .catch(err => console.log('Error in FileNavigator deleteFile: ', err));
   }
 

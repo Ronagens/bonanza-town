@@ -18,8 +18,9 @@ router.post('/',
     res.status(200).json('successful post');
   })
   
-router.delete('/:id', (req, res) => {
-  console.log(req.params);
-  res.status(200).json('successful delete');
-})
+router.delete('/:id',
+  fileController.deleteFile,
+  (req, res) => {
+  res.status(200).json(res.locals.deletedFile);
+  })
 module.exports = router;
