@@ -68,6 +68,13 @@ p {
   min-width: 150px;
 }
 
+.file-nav-item {
+  background-color: #f0bebe;
+  border: 3px solid #8b8bd7;
+  border-radius: 5%;
+  margin: 2px;
+}
+
 .file-upload {
   background-color: forestgreen;
   height: 20vh;

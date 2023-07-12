@@ -1,9 +1,9 @@
 const express = require('express');
 const path = require('path');
-const multer = require('multer');
-const upload = multer({ dest: './uploads/' });
 const mongoose = require('mongoose');
 // add cookieparser/bcrypt for authentication
+
+const fileRouter = require(path.resolve(__dirname, 'routes/fileRouter.js'));
 
 const app = express();
 const PORT = 3000;
@@ -26,13 +26,10 @@ else {
 
 
 //TODO: router stuff
-app.post('/file',
-  upload.single('myFile'),
-  (req, res) => {
-  // Add filename, path, and original name to a database?
-  console.log('Uploaded file: ', req.file.originalname);
-  res.status(200).send('Hey that uploaded');
-})
+app.use('/file', fileRouter);
+
+
+
 
 //TODO: Serve generic file
 app.get('/', (req, res) => {

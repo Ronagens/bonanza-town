@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 const FileNavItem = (props) => {
 
   return(
-    <div>
+    <div className='file-nav-item'>
       <p>{props.name}</p>
     </div>
   );
