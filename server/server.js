@@ -8,8 +8,8 @@ const mongoose = require('mongoose');
 const app = express();
 const PORT = 3000;
 
-// const mongoURI = process.env.NODE_ENV === 'development' ? 'mongodb://localhost/devdb' : 'mongodb://localhost/builddb';
-// mongoose.connect(mongoURI);
+const mongoURI = process.env.NODE_ENV === 'development' ? 'mongodb://localhost/solodevdb' : 'mongodb://localhost/solobuilddb';
+mongoose.connect(mongoURI);
 
 //TODO: Add/import router files
 

@@ -10,8 +10,8 @@
  */
 
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { counter } from '../reducers/generalReducers.js';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { counter } from '../reducers/generalReducers.js';
 
 import FileNavigator from '../components/FileNavigator.jsx';
 
