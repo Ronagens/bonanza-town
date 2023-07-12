@@ -1,14 +1,7 @@
 const express = require('express');
 const path = require('path');
 const multer = require('multer');
-const upload = multer({ 
-  dest: './uploads/',
-  onError: function(err, next) {
-    console.log('multer error: ', err);
-    return next(err);
-  }
-  });
-const fs = require('fs');
+const upload = multer({ dest: './uploads/' });
 // add cookieparser/bcrypt for authentication
 
 const app = express();
@@ -31,11 +24,9 @@ else {
 app.post('/file',
   upload.single('myFile'),
   (req, res) => {
-  console.log(req.headers);
-  console.log(req.body);
-  console.log(req.file);
-  
-  res.status(200).send('idk man');
+  // Add filename, path, and original name to a database?
+  console.log('Uploaded file: ', req.file.originalname);
+  res.status(200).send('Hey that uploaded');
 })
 
 //TODO: Serve generic file

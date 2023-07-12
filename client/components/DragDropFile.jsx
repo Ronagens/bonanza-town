@@ -1,8 +1,24 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const DragDropFile = () => {
 
   const [dragActive, setDragActive] = useState(false);
+  const [file, setFile] = useState(null);
+
+  function uploadFile() {
+    if (!file) return console.log('file is empty');
+
+    const formData = new FormData();
+
+    formData.append(
+      'myFile',
+      file,
+      file.name
+    )
+    console.log('file: ', file);
+    axios.post('/file', formData);
+  }
 
   const handleDrag = function(e) {
     e.preventDefault();
@@ -21,45 +37,24 @@ const DragDropFile = () => {
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       console.log('draggy files: ', e.dataTransfer.files);
-      uploadFile(e.dataTransfer.files[0]);
+      setFile(e.dataTransfer.files[0]);
     }
   }
 
   const handleChange = function(e) {
     e.preventDefault();
     if (e.target.files && e.target.files[0]) {
-      console.log('clicky files: ', e.target.files);
+      setFile(e.target.files[0]);
     }
-  }
-
-  const uploadFile = (file) => {
-    const form = new FormData();
-    form.append('test', true);
-    console.log(form);
-    fetch('/file', {
-      method: 'POST',
-      headers: {
-        'content-length': '163',
-        'content-type': 'multipart/form-data; boundary=--------------------------708012600792797463072238',
-        connection: 'close',
-        'accept-encoding': 'gzip, deflate, br',
-        host: 'localhost:8080',
-        accept: '*/*',
-      },
-      body: form
-    })
-    .then(response => console.log(response))
-    // .then(success => console.log("Success: ", success))
-    .catch(err => console.log(err));
-  }
+  };
 
   return (
     <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
       <input type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
       <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : "" }>
         <div>
-          <p>Drag and drop your file here or</p>
-          <button className="upload-button">Upload a file</button>
+          <p>Drag and drop your file then</p>
+          <button className="upload-button" onClick={uploadFile}>Click to upload</button>
         </div> 
       </label>
       { dragActive && <div id="drag-file-element" onDragEnter={handleDrag} onDragLeave={handleDrag} onDragOver={handleDrag} onDrop={handleDrop}></div> }
