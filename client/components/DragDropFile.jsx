@@ -6,21 +6,27 @@ const DragDropFile = (props) => {
   const [dragActive, setDragActive] = useState(false);
   const [file, setFile] = useState(null);
 
-  function uploadFile() {
+  async function uploadFile() {
     if (!file) return console.log('file is empty');
 
-    const formData = new FormData();
+    try {
+      const formData = new FormData();
 
-    formData.append(
-      'myFile',
-      file,
-      file.name
-    )
-    console.log('file: ', file);
-    axios.post('/file', formData);
-
-    setFile(null);
-    props.getFiles();
+      formData.append(
+        'myFile',
+        file,
+        file.name
+      )
+      console.log('file: ', file);
+      await axios.post('/file', formData);
+  
+      setFile(null);
+      props.getFiles();
+    }
+    catch (err) {
+      console.log('Error happened in DDF uploadFile: ', err);
+    }
+    
   }
 
   const handleDrag = function(e) {

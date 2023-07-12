@@ -10,8 +10,6 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { counter } from '../reducers/generalReducers.js';
 
 import FileNavigator from '../components/FileNavigator.jsx';
 import DragDropFile from '../components/DragDropFile.jsx';
