@@ -2,10 +2,15 @@ const express = require('express');
 const path = require('path');
 const multer = require('multer');
 const upload = multer({ dest: './uploads/' });
+const mongoose = require('mongoose');
 // add cookieparser/bcrypt for authentication
 
 const app = express();
 const PORT = 3000;
+
+// const mongoURI = process.env.NODE_ENV === 'development' ? 'mongodb://localhost/devdb' : 'mongodb://localhost/builddb';
+// mongoose.connect(mongoURI);
+
 //TODO: Add/import router files
 
 app.use(express.json());

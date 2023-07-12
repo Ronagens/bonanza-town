@@ -58,18 +58,22 @@ p {
 .header-nav-bar {
   background-color: grey;
   height: 4vh;
+  min-height: 40px;
 }
 
 .file-navigator {
   background-color: aqua;
   height: 76vh;
   width: 30vh;
+  min-width: 150px;
 }
 
 .file-upload {
   background-color: forestgreen;
   height: 20vh;
   width: 30vh;
+  min-height: 150px;
+  min-width: 150px;
   position: fixed;
   bottom: 0;
   left: 0;

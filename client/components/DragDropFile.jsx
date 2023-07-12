@@ -18,6 +18,8 @@ const DragDropFile = () => {
     )
     console.log('file: ', file);
     axios.post('/file', formData);
+
+    setFile(null);
   }
 
   const handleDrag = function(e) {
