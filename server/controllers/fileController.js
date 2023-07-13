@@ -8,7 +8,6 @@ const fileController = {};
 fileController.createFile = async (req, res, next) => {
   const { originalname, filename, path, mimetype } = req.file
   const { userId } = req.body;
-  console.log(req.body);
   try {
     await File.create({
       owner_id: userId || null,
@@ -40,7 +39,6 @@ fileController.previewFile = async (req, res, next) => {
   try {
     const file = await File.findOne({ _id: req.params.id });
     res.locals.file = path.resolve(__dirname, '../../' + file.filepath);
-    console.log(res.locals.file);
     return next();
   } catch (err) {
     console.log('Error in fileController.previewFile: ', err);
@@ -52,7 +50,6 @@ fileController.previewInfo = async (req, res, next) => {
   try {
     const file = await File.findOne({ _id: req.params.id });
     res.locals.fileInfo = { name: file.name, type: file.filetype }
-    console.log(res.locals.fileInfo);
     return next();
   } catch (err) {
     console.log('Error in fileController.previewFile: ', err);
@@ -67,10 +64,8 @@ fileController.deleteFile = async (req, res, next) => {
 
     await fs.unlink(path.resolve(__dirname, '../../' + deletedFile.filepath), (err) => {
       if (err) console.log(err);
-      console.log('deleted');
     });
 
-    console.log('Deleted: ', deletedFile);
     return next();
   }
   catch (err) {
@@ -93,7 +88,6 @@ fileController.getPublicFiles = async (req, res, next) => {
 fileController.getUserFiles = async (req, res, next) => {
   const { id } = req.params;
   try {
-    console.log('getting user files');
     const files = await File.find({ owner_id: id }, 'name');
     res.locals.files = res.locals.files.concat(files);
     return next();

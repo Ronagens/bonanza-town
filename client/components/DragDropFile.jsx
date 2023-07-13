@@ -60,12 +60,14 @@ const DragDropFile = (props) => {
     }
   };
 
+  let pText = 'Drag and drop your file then'
+  if (file) pText = file.name;
   return (
     <form id="form-file-upload" onDragEnter={handleDrag} onSubmit={(e) => e.preventDefault()}>
       <input type="file" id="input-file-upload" multiple={true} onChange={handleChange} />
       <label id="label-file-upload" htmlFor="input-file-upload" className={dragActive ? "drag-active" : "" }>
         <div>
-          <p className="text-groovy">Drag and drop your file then</p>
+          <p className="text-groovy">{pText}</p>
           <button className="upload-button" onClick={uploadFile}>Click to upload</button>
         </div> 
       </label>

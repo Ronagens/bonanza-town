@@ -100,7 +100,7 @@ const MainContainer = () => {
     if (newFile.type === 'text/plain' || newFile.type === 'application/x-javascript') {
       reader.readAsText(newFile);
     }
-    else if (newFile.type === 'image/png') {
+    else if (newFile.type === 'image/png' || newFile.type === 'audio/mpeg') {
       reader.readAsDataURL(newFile);
     }
     
@@ -166,6 +166,8 @@ const MainContainer = () => {
 
   function logoutUser() {
     setUser(null);
+    setPreviewFile(null);
+    getFileNames();
   }
 
   return(

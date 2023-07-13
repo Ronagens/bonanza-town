@@ -8,7 +8,7 @@ const FileViewer = (props) => {
     if (previewFile.file.type === 'text/plain' || previewFile.file.type === 'application/x-javascript') {
       return (
         <div className="file-viewer">
-          <pre>{previewFile.preview}</pre>
+          <pre className="text-groovy">{previewFile.preview}</pre>
         </div>
       );
     }
@@ -16,6 +16,15 @@ const FileViewer = (props) => {
       return (
         <div className="file-viewer container-center">
           <img id="preview-image" src={previewFile.preview} />
+        </div>
+      )
+    }
+    else if (previewFile.file.type === 'audio/mpeg') {
+      return (
+        <div className="file-viewer container-center">
+          <audio controls>
+            <source src={previewFile.preview} />
+          </audio>
         </div>
       )
     }
