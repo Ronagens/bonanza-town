@@ -167,7 +167,6 @@ const MainContainer = () => {
   function logoutUser() {
     setUser(null);
     setPreviewFile(null);
-    getFileNames();
   }
 
   return(

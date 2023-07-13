@@ -11,7 +11,7 @@ const HeaderNavBar = (props) => {
           <h1>FILE SHARE BONANZA TOWN</h1>
         </header>
         <div className="user-info">
-          <p className="text-groovy" id="username-text">Welcome to the disco, {user.username}</p>
+          <p className="text-groovy" id="username-text">Welcome to the bonanza, {user.username}</p>
           <button className="input-button" onClick={(e) => { props.logoutUser(e) }}>Logout</button>
         </div>
       </div>

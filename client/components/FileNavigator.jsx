@@ -19,6 +19,7 @@ const FileNavigator = (props) => {
 
   return(
     <div>
+      <h2>File Navigator</h2>
       {newNavItems}
     </div>
   );

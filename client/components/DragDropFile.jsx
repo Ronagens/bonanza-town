@@ -49,6 +49,7 @@ const DragDropFile = (props) => {
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
       setFile(e.dataTransfer.files[0]);
+      props.updatePreviewFile(e.dataTransfer.files[0]);
     }
   }
 
