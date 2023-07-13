@@ -31,7 +31,30 @@ fileController.downloadFile = async (req, res, next) => {
     console.log('Error in fileController.downloadFile: ', err);
     return next({ log: 'Error in fileController.downloadFile', err});
   }
-  
+}
+
+fileController.previewFile = async (req, res, next) => {
+  try {
+    const file = await File.findOne({ _id: req.params.id });
+    res.locals.file = path.resolve(__dirname, '../../' + file.filepath);
+    console.log(res.locals.file);
+    return next();
+  } catch (err) {
+    console.log('Error in fileController.previewFile: ', err);
+    return next({ log: 'Error in fileController.previewFile', err});
+  }
+}
+
+fileController.previewInfo = async (req, res, next) => {
+  try {
+    const file = await File.findOne({ _id: req.params.id });
+    res.locals.fileInfo = { name: file.name, type: file.filetype }
+    console.log(res.locals.fileInfo);
+    return next();
+  } catch (err) {
+    console.log('Error in fileController.previewFile: ', err);
+    return next({ log: 'Error in fileController.previewFile', err});
+  }
 }
 
 fileController.deleteFile = async (req, res, next) => {

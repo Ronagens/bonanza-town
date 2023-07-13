@@ -35,12 +35,12 @@ const MainContainer = () => {
   // Gets all files from server
   function getFileNames() {
     fetch('/file')
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setFiles(data)
-    })
-    .catch(err => console.log('MainContainer getFileNames error: ', err));
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        setFiles(data)
+      })
+      .catch(err => console.log('MainContainer getFileNames error: ', err));
   }
 
   // Deletes a file from server matching the input id
@@ -49,42 +49,47 @@ const MainContainer = () => {
     fetch('/file/' + id, {
       method: 'DELETE'
     })
-    .then(response => response.json())
-    .then(data => {
-      console.log('Deleted: ', data)
-      getFileNames();
-    })
-    .catch(err => console.log('Error in MainContainer deleteFile: ', err));
-  }
-
-  function getFileData(id) {
-    return fetch('/file/download/' + id)
-      .then(response => response.blob())
-      .catch(err => console.log('Error in MainContainer getFileData: ', err));
+      .then(response => response.json())
+      .then(data => {
+        console.log('Deleted: ', data)
+        getFileNames();
+      })
+      .catch(err => console.log('Error in MainContainer deleteFile: ', err));
   }
 
   // Downloads a file form server matching id
-  async function downloadFile(id, name) {
+  function downloadFile(id, name) {
     console.log('downloading: ', id);
     fetch('/file/download/' + id)
-    .then(response => response.blob())
-    .then(blob => {
-      // Downloads to user's computer
-      const fileURL = window.URL.createObjectURL(blob);
-      let alink = document.createElement('a');
-      alink.href = fileURL;
-      alink.download = name;
-      alink.click();
-      getFileNames();
-    })
-    .catch(err => console.log('Error in MainContainer downloadFile: ', err));
+      .then(response => response.blob())
+      .then(blob => {
+        // Downloads to user's computer
+        const fileURL = window.URL.createObjectURL(blob);
+        let alink = document.createElement('a');
+        alink.href = fileURL;
+        alink.download = name;
+        alink.click();
+        getFileNames();
+      })
+      .catch(err => console.log('Error in MainContainer downloadFile: ', err));
   }
 
   function getNewPreviewFile(id, name) {
-    const newFile = files.find(el => el.name === name);
-    console.log(newFile);
-
-    updatePreviewFile(newFile);
+    console.log(id);
+    fetch('/file/preview/' + id)
+      .then(response => {
+        return response.blob()
+      })
+      .then(blob => {
+        fetch('/file/previewinfo/' + id)
+          .then(response => response.json())
+          .then(data => {
+            const newFile = new File([blob], data.name, { type: data.type });
+            updatePreviewFile(newFile);
+          })
+          .catch(err => console.oog('Error in MainConainer getNewPreviewFile getting the info: ', err));
+      })
+      .catch(err => console.log('Error in MainContainer getNewPreviewFile: ', err));
   }
 
   function updatePreviewFile(newFile) {
@@ -93,7 +98,7 @@ const MainContainer = () => {
       setPreviewFile({ file: newFile, preview: reader.result });
     }
 
-    if (newFile.type === 'text/plain') {
+    if (newFile.type === 'text/plain' || newFile.type === 'application/x-javascript') {
       reader.readAsText(newFile);
     }
     else if (newFile.type === 'image/png') {
@@ -119,17 +124,17 @@ const MainContainer = () => {
         },
         body: JSON.stringify({ username: userInput.username, password: userInput.password })
       })
-      .then(response => response.json())
-      .then(data => {
-        setUser({
-          ...data,
-          password: null
+        .then(response => response.json())
+        .then(data => {
+          setUser({
+            ...data,
+            password: null
+          })
+          console.log('changed user on login: ', data);
         })
-        console.log('changed user on login: ', data);
-      })
-      .catch(err => {
-        console.log('Error occured in MainContainer loginUser: ', err);
-      })
+        .catch(err => {
+          console.log('Error occured in MainContainer loginUser: ', err);
+        })
     }
     else {
       console.log('me angy');
@@ -145,15 +150,15 @@ const MainContainer = () => {
         },
         body: JSON.stringify({ username: userInput.username, password: userInput.password })
       })
-      .then(response => response.json())
-      .then(data => {
-        setUser({
-          ...data,
-          password: null
-        });
-        console.log('changed user on signup: ', data);
-      })
-      .catch(err => console.log('Error in MainContainer createUser: ', err));
+        .then(response => response.json())
+        .then(data => {
+          setUser({
+            ...data,
+            password: null
+          });
+          console.log('changed user on signup: ', data);
+        })
+        .catch(err => console.log('Error in MainContainer createUser: ', err));
     }
     else {
       // make mad

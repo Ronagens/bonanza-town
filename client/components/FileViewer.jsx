@@ -5,8 +5,8 @@ const FileViewer = (props) => {
   const { previewFile } = props;
 
   if (previewFile) {
-    console.log(previewFile);
-    if (previewFile.file.type === 'text/plain') {
+    console.log('preview file: ', previewFile);
+    if (previewFile.file.type === 'text/plain' || previewFile.file.type === 'application/x-javascript') {
       return (
         <div className="file-viewer">
           <pre>{previewFile.preview}</pre>
