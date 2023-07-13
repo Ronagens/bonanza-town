@@ -17,6 +17,9 @@ const DragDropFile = (props) => {
         file,
         file.name
       )
+      if (props.user) {
+        formData.append('userId', props.user._id);
+      }
       console.log('file: ', file);
       await axios.post('/file', formData);
   
@@ -45,7 +48,6 @@ const DragDropFile = (props) => {
     e.stopPropagation();
     setDragActive(false);
     if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-      console.log('draggy files: ', e.dataTransfer.files);
       setFile(e.dataTransfer.files[0]);
     }
   }

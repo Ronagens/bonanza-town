@@ -6,16 +6,16 @@ const path = require('path');
 
 const router = express.Router();
 
-router.get('/',
-  fileController.getAllFiles,
-  (req, res) => {
-    res.status(200).json(res.locals.files);
-  })
-
 router.get('/download/:id',
   fileController.downloadFile,
   (req, res) => {
     res.status(200).download(res.locals.file);
+  })
+
+router.get('/previewinfo/:id',
+  fileController.previewInfo,
+  (req, res) => {
+    res.status(200).json(res.locals.fileInfo);
   })
 
 router.get('/preview/:id',
@@ -24,10 +24,17 @@ router.get('/preview/:id',
     res.status(200).sendFile(res.locals.file);
   })
 
-router.get('/previewinfo/:id',
-  fileController.previewInfo,
+router.get('/myfiles/:id',
+  fileController.getPublicFiles,
+  fileController.getUserFiles,
   (req, res) => {
-    res.status(200).json(res.locals.fileInfo);
+    res.status(200).json(res.locals.files);
+  })
+
+router.get('/',
+  fileController.getPublicFiles,
+  (req, res) => {
+    res.status(200).json(res.locals.files);
   })
 
 router.post('/',

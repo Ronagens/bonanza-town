@@ -34,10 +34,11 @@ const MainContainer = () => {
 
   // Gets all files from server
   function getFileNames() {
-    fetch('/file')
+    let url = '/file/';
+    if (user) url += 'myfiles/' + user._id
+    fetch(url)
       .then(response => response.json())
       .then(data => {
-        console.log(data);
         setFiles(data)
       })
       .catch(err => console.log('MainContainer getFileNames error: ', err));
@@ -51,7 +52,6 @@ const MainContainer = () => {
     })
       .then(response => response.json())
       .then(data => {
-        console.log('Deleted: ', data)
         getFileNames();
       })
       .catch(err => console.log('Error in MainContainer deleteFile: ', err));
@@ -75,7 +75,6 @@ const MainContainer = () => {
   }
 
   function getNewPreviewFile(id, name) {
-    console.log(id);
     fetch('/file/preview/' + id)
       .then(response => {
         return response.blob()
@@ -130,14 +129,14 @@ const MainContainer = () => {
             ...data,
             password: null
           })
-          console.log('changed user on login: ', data);
+          getFileNames();
         })
         .catch(err => {
           console.log('Error occured in MainContainer loginUser: ', err);
         })
     }
     else {
-      console.log('me angy');
+      console.log('me angry');
     }
   }
 
@@ -156,7 +155,6 @@ const MainContainer = () => {
             ...data,
             password: null
           });
-          console.log('changed user on signup: ', data);
         })
         .catch(err => console.log('Error in MainContainer createUser: ', err));
     }
@@ -177,7 +175,7 @@ const MainContainer = () => {
         <FileNavigator files={files} deleteFile={deleteFile} downloadFile={downloadFile} getNewPreviewFile={getNewPreviewFile} />
       </div>
       <div className="file-upload">
-        <DragDropFile getFileNames={getFileNames} updatePreviewFile={updatePreviewFile} />
+        <DragDropFile getFileNames={getFileNames} updatePreviewFile={updatePreviewFile} user={user} />
       </div>
       <FileViewer previewFile={previewFile} />
     </div>

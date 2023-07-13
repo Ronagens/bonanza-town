@@ -6,9 +6,12 @@ const fs = require('fs');
 const fileController = {};
 
 fileController.createFile = async (req, res, next) => {
-  const { originalname, filename, path, mimetype} = req.file
+  const { originalname, filename, path, mimetype } = req.file
+  const { userId } = req.body;
+  console.log(req.body);
   try {
     await File.create({
+      owner_id: userId || null,
       filename: filename,
       filepath: path,
       filetype: mimetype,
@@ -76,10 +79,23 @@ fileController.deleteFile = async (req, res, next) => {
   }
 }
 
-fileController.getAllFiles = async (req, res, next) => {
+fileController.getPublicFiles = async (req, res, next) => {
   try {
-    const files = await File.find({}, 'name');
+    const files = await File.find({ owner_id: null }, 'name');
     res.locals.files = files
+    return next();
+  } catch (err) {
+    console.log('Error in fileController.getAllFiles: ', err);
+    return next({ log: 'Error in fileController.getAllFiles', err});
+  }
+}
+
+fileController.getUserFiles = async (req, res, next) => {
+  const { id } = req.params;
+  try {
+    console.log('getting user files');
+    const files = await File.find({ owner_id: id }, 'name');
+    res.locals.files = res.locals.files.concat(files);
     return next();
   } catch (err) {
     console.log('Error in fileController.getAllFiles: ', err);
