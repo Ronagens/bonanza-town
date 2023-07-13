@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 // add cookieparser/bcrypt for authentication
 
 const fileRouter = require(path.resolve(__dirname, 'routes/fileRouter.js'));
+const userRouter = require(path.resolve(__dirname, 'routes/userRouter.js'));
 
 const app = express();
 const PORT = 3000;
@@ -28,6 +29,8 @@ else {
 //TODO: router stuff
 app.use('/file', fileRouter);
 
+app.use('/user', userRouter);
+
 
 
 
@@ -37,7 +40,7 @@ app.get('/', (req, res) => {
 });
 
 //TODO: Double check 404 handler
-app.use('*', (req, res) => res.status(404).send('This is not the page you\'re looking for...'));
+app.use('*', (req, res) => res.status(404).send('Nothings exists here :O'));
 
 // Error handler
 app.use((err, req, res, next) => {

@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  files: [{ type: Object }]
+  files: [{ type: Schema.Types.ObjectId, ref: 'file' }]
 })
 
 const User = mongoose.model('user', userSchema);

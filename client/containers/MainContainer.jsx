@@ -19,6 +19,11 @@ const MainContainer = () => {
 
   // Array of files on the server
   const [files, setFiles] = useState([]);
+  const [user, setUser] = useState({
+    username: null,
+    password: null,
+    files: []
+  });
 
   // Get files from server on initial load
   useEffect(() => {
@@ -67,9 +72,46 @@ const MainContainer = () => {
     .catch(err => console.log('Error in FileNavigator downloadFile: ', err));
   }
 
+  function updateUserInfo(e) {
+    setUser({
+      ...user,
+      username: e.target.parentNode[0].value,
+      password: e.target.parentNode[1].value
+    })
+  }
+
+  function loginUser(e) {
+    console.log(e.target.parentNode[0]);
+  }
+
+  function createUser() {
+    if (user.username && user.password) {
+      fetch('/user/signup', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ username: user.username, password: user.password })
+      })
+      .then(response => response.json())
+      .then(data => {{
+        setUser({
+          ...data,
+          password: null
+        });
+        console.log('changed user: ', user);
+      }})
+      .catch(err => console.log('Error in MainContainer createUser: ', err));
+    }
+    else {
+      // make mad
+      console.log('missing username or password')
+    }
+  }
+
   return(
     <div className="container-main">
-      <HeaderNavBar />
+      <HeaderNavBar loginUser={loginUser} createUser={createUser} updateUserInfo={updateUserInfo} />
       <div className="file-navigator">
         <FileNavigator files={files} deleteFile={deleteFile} downloadFile={downloadFile} />
       </div>

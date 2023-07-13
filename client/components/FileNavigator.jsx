@@ -12,10 +12,7 @@ const FileNavigator = (props) => {
 
   return(
     <div>
-      <p>HI HI THIS IS FILE NAVIGATOR</p>
-      <div>
-        {newNavItems}
-      </div>
+      {newNavItems}
     </div>
   );
 };
