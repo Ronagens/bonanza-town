@@ -12,7 +12,7 @@ const FileViewer = (props) => {
         </div>
       );
     }
-    else if (previewFile.file.type === 'image/png') {
+    else if (previewFile.file.type === 'image/png' || previewFile.file.type === 'image/jpeg') {
       return (
         <div className="file-viewer container-center">
           <img id="preview-image" src={previewFile.preview} />

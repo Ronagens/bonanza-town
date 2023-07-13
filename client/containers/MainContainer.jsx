@@ -100,7 +100,7 @@ const MainContainer = () => {
     if (newFile.type === 'text/plain' || newFile.type === 'application/x-javascript') {
       reader.readAsText(newFile);
     }
-    else if (newFile.type === 'image/png' || newFile.type === 'audio/mpeg') {
+    else if (newFile.type === 'image/png' || newFile.type === 'audio/mpeg' || newFile.type === 'image/jpeg') {
       reader.readAsDataURL(newFile);
     }
     
