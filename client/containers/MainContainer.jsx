@@ -19,16 +19,16 @@ const MainContainer = () => {
 
   // Array of files on the server
   const [files, setFiles] = useState([]);
-  const [user, setUser] = useState({
+  const [user, setUser] = useState(null);
+  const [userInput, setUserInput] = useState({
     username: null,
-    password: null,
-    files: []
+    password: null
   });
 
   // Get files from server on initial load
   useEffect(() => {
     getFiles();
-  }, [])
+  }, [user])
 
   // Gets all files from server
   function getFiles() {
@@ -73,34 +73,56 @@ const MainContainer = () => {
   }
 
   function updateUserInfo(e) {
-    setUser({
-      ...user,
+    setUserInput({
+      ...userInput,
       username: e.target.parentNode[0].value,
       password: e.target.parentNode[1].value
     })
   }
 
-  function loginUser(e) {
-    console.log(e.target.parentNode[0]);
+  function loginUser() {
+    if (userInput.username && userInput.password) {
+      fetch('/user/login', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json'
+        },
+        body: JSON.stringify({ username: userInput.username, password: userInput.password })
+      })
+      .then(response => response.json())
+      .then(data => {
+        setUser({
+          ...data,
+          password: null
+        })
+        console.log('changed user on login: ', data);
+      })
+      .catch(err => {
+        console.log('Error occured in MainContainer loginUser: ', err);
+      })
+    }
+    else {
+      console.log('me angy');
+    }
   }
 
   function createUser() {
-    if (user.username && user.password) {
+    if (userInput.username && userInput.password) {
       fetch('/user/signup', {
         method: 'POST',
         headers: {
           'Content-type': 'application/json'
         },
-        body: JSON.stringify({ username: user.username, password: user.password })
+        body: JSON.stringify({ username: userInput.username, password: userInput.password })
       })
       .then(response => response.json())
-      .then(data => {{
+      .then(data => {
         setUser({
           ...data,
           password: null
         });
-        console.log('changed user: ', user);
-      }})
+        console.log('changed user on signup: ', data);
+      })
       .catch(err => console.log('Error in MainContainer createUser: ', err));
     }
     else {
@@ -109,9 +131,13 @@ const MainContainer = () => {
     }
   }
 
+  function logoutUser() {
+    setUser(null);
+  }
+
   return(
     <div className="container-main">
-      <HeaderNavBar loginUser={loginUser} createUser={createUser} updateUserInfo={updateUserInfo} />
+      <HeaderNavBar loginUser={loginUser} createUser={createUser} updateUserInfo={updateUserInfo} user={user} logoutUser={logoutUser} />
       <div className="file-navigator">
         <FileNavigator files={files} deleteFile={deleteFile} downloadFile={downloadFile} />
       </div>

@@ -3,10 +3,10 @@ const userController = require('../controllers/userController.js');
 
 const router = express.Router();
 
-router.get('/login',
+router.post('/login',
   userController.verifyUser,
   (req, res) => {
-    res.status(200).json('successful get');
+    res.status(200).json(res.locals.user);
   })
 
 router.post('/signup',
