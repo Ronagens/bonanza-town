@@ -11,6 +11,10 @@ p {
   margin: 3px;
 }
 
+pre {
+  white-space: pre-wrap;
+}
+
 #form-file-upload {
   height: 100%;
   width: 100%;
@@ -50,13 +54,24 @@ p {
 #login-form {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   height: 100%;
   width: 100%;
 }
 
+#preview-image {
+  max-height: 100%;
+  max-width: 100%;
+}
+
 #username-text {
   font-size: 20px;
+}
+
+.container-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .container-main {
@@ -89,16 +104,6 @@ p {
   width: 53%;
 }
 
-.header-nav-bar {
-  grid-column-start: 1;
-  grid-column-end: 3;
-  grid-row-start: 1;
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: grey;
-}
-
 .file-navigator {
   grid-row-start: 2;
   grid-row-end: 3;
@@ -120,6 +125,26 @@ p {
   grid-row-start: 3;
   height: 146px;
   background-color: forestgreen;
+}
+
+.file-viewer {
+  grid-row-start: 2;
+  grid-row-end: 4;
+  background-image: linear-gradient(#8b8bd7, #a428b4);
+  max-height: 100%;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.header-nav-bar {
+  grid-column-start: 1;
+  grid-column-end: 3;
+  grid-row-start: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  background-image: linear-gradient(to right, #ff36e4, #6013ee, #3643ff);
+  border: 2px solid yellow;
 }
 
 .input-field {
@@ -163,8 +188,6 @@ p {
 }
 
 .user-info {
-  background-image: linear-gradient(to right, #ff36e4, #6013ee, #3643ff);
-  border: 2px solid yellow;
   display: flex;
   align-items: center;
   justify-content: flex-end;

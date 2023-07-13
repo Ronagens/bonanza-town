@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const DragDropFile = (props) => {
@@ -21,7 +21,7 @@ const DragDropFile = (props) => {
       await axios.post('/file', formData);
   
       setFile(null);
-      props.getFiles();
+      props.getFileNames();
     }
     catch (err) {
       console.log('Error happened in DDF uploadFile: ', err);
@@ -54,6 +54,7 @@ const DragDropFile = (props) => {
     e.preventDefault();
     if (e.target.files && e.target.files[0]) {
       setFile(e.target.files[0]);
+      props.updatePreviewFile(e.target.files[0]);
     }
   };
 
