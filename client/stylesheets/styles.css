@@ -89,7 +89,7 @@ pre {
   background-color: coral;
   display: grid;
   grid-template-columns: 350px 1fr;
-  grid-template-rows: 40px 1fr 150px;
+  grid-template-rows: 40px 1fr 225px;
   height: 100vh;
   margin: 0px;
 }
@@ -134,7 +134,7 @@ pre {
 
 .file-upload {
   grid-row-start: 3;
-  height: 146px;
+  height: 221px;
   background-color: forestgreen;
 }
 
